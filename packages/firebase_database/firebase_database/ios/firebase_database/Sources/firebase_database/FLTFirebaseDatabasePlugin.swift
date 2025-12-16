@@ -157,10 +157,11 @@ public class FLTFirebaseDatabasePlugin: NSObject, FlutterPlugin, FLTFirebasePlug
   func useDatabaseEmulator(app: DatabasePigeonFirebaseApp, host: String, port: Int64,
                            completion: @escaping (Result<Void, Error>) -> Void) {
     let database = getDatabaseFromPigeonApp(app)
-    try {
+    do {
       database.useEmulator(withHost: host, port: Int(port))
       completion(.success(()))
-    } catch (e) {
+    } catch let error {
+      print("Error setting up emulator: \(error)")
       completion(.success(()))
     }
   }
